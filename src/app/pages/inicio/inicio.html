@@ -1,1 +1,35 @@
-<p>inicio works!</p>
+<section class="hero-section text-center">
+
+  <h2>Bienvenido a Arcadia Store</h2>
+
+  <p>
+    Descubre juegos de mesa para todos los gustos y edades.
+  </p>
+
+</section>
+
+<section class="category-grid">
+
+  <article
+    class="category-card"
+    *ngFor="let categoria of categorias"
+  >
+
+    <img
+      [src]="categoria.imagen"
+      [alt]="categoria.nombre"
+    >
+
+    <h3>{{ categoria.nombre }}</h3>
+
+    <p>
+      {{ categoria.descripcion }}
+    </p>
+
+    <a routerLink="/catalogo">
+      Ver categoría
+    </a>
+
+  </article>
+
+</section>

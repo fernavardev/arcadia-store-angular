@@ -1,1 +1,34 @@
-<p>catalogo works!</p>
+<section class="page-title text-center">
+  <h2>Catálogo de juegos</h2>
+  <p>Explora nuestra selección de juegos de mesa.</p>
+</section>
+
+<section class="game-grid">
+
+  <article class="game-card" *ngFor="let producto of productos">
+
+    <img
+      [src]="producto.imagen"
+      [alt]="producto.nombre"
+    >
+
+    <h3>{{ producto.nombre }}</h3>
+
+    <p>
+      Categoría: {{ producto.categoria }}
+    </p>
+
+    <p class="price">
+      ${{ producto.precio }}
+    </p>
+
+    <p
+      class="discount"
+      *ngIf="producto.descuento > 0"
+    >
+      {{ producto.descuento }}% de descuento
+    </p>
+
+  </article>
+
+</section>
