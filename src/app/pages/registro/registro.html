@@ -1,1 +1,61 @@
-<p>registro works!</p>
+<section class="page-title text-center">
+  <h2>Formulario de registro</h2>
+  <p>
+    Regístrate para acceder a futuras recompensas, descuentos y seguimiento de tus juegos favoritos.
+  </p>
+</section>
+
+<section class="register-section">
+  <form class="register-form" (ngSubmit)="registrar()">
+    <div class="row g-4">
+      <div class="col-12 col-md-6">
+        <label for="nombre" class="form-label">Nombre completo</label>
+        <input type="text" id="nombre" class="form-control" placeholder="Ingresa tu nombre completo" [(ngModel)]="nombre" name="nombre">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="usuario" class="form-label">Nombre de usuario</label>
+        <input type="text" id="usuario" class="form-control" placeholder="Ingresa un nombre de usuario" [(ngModel)]="usuario" name="usuario">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input type="email" id="correo" class="form-control" placeholder="usuario@correo.com" [(ngModel)]="correo" name="correo">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+        <input type="date" id="fechaNacimiento" class="form-control" [(ngModel)]="fechaNacimiento" name="fechaNacimiento">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="repetirPassword" class="form-label">Repetir contraseña</label>
+        <input type="password" id="repetirPassword" class="form-control" placeholder="Repite tu contraseña" [(ngModel)]="repetirPassword" name="repetirPassword">
+      </div>
+
+      <div class="col-12">
+        <label for="direccion" class="form-label">Dirección de despacho (opcional)</label>
+        <textarea id="direccion" class="form-control" rows="3" placeholder="Ingresa tu dirección" [(ngModel)]="direccion" name="direccion"></textarea>
+      </div>
+    </div>
+
+    <div class="register-buttons">
+      <button type="submit" class="btn btn-primary">
+        Registrarse
+      </button>
+
+      <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+        Limpiar formulario
+      </button>
+    </div>
+
+    <div class="success-message" *ngIf="registroExitoso">
+      Registro realizado correctamente.
+    </div>
+  </form>
+</section>

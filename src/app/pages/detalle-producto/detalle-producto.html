@@ -1,1 +1,54 @@
-<p>detalle-producto works!</p>
+<section class="page-title text-center" *ngIf="producto; else productoNoEncontrado">
+  <h2>{{ producto.nombre }}</h2>
+  <p>Detalle del juego seleccionado en la categoría {{ producto.categoria }}.</p>
+</section>
+
+<section class="product-detail" *ngIf="producto; else productoNoEncontrado">
+  <div class="product-detail-image">
+    <img
+      [src]="producto.imagen"
+      [alt]="producto.nombre"
+    >
+  </div>
+
+  <div class="product-detail-info">
+    <span class="detail-category">{{ producto.categoria }}</span>
+
+    <h3>{{ producto.nombre }}</h3>
+
+    <p>
+      {{ producto.descripcion }}
+    </p>
+
+    <div class="detail-price-row">
+
+      <p class="price">
+        ${{ producto.precio }}
+      </p>
+
+      <p class="discount" *ngIf="producto.descuento > 0">
+        {{ producto.descuento }}% de descuento
+      </p>
+
+    </div>
+
+    <p>
+      Stock disponible: {{ producto.stock }}
+    </p>
+
+    <a class="product-link" [routerLink]="rutaRetorno">
+      Volver a la categoría
+    </a>
+  </div>
+</section>
+
+<ng-template #productoNoEncontrado>
+  <section class="page-title text-center">
+    <h2>Producto no encontrado</h2>
+    <p>No fue posible encontrar el producto solicitado.</p>
+
+    <a class="product-link" routerLink="/catalogo">
+      Volver al catálogo
+    </a>
+  </section>
+</ng-template>

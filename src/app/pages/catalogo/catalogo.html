@@ -1,12 +1,10 @@
 <section class="page-title text-center">
-  <h2>Catálogo de juegos</h2>
-  <p>Explora nuestra selección de juegos de mesa.</p>
+  <h2>{{ infoCategoria.titulo }}</h2>
+  <p>{{ infoCategoria.descripcion }}</p>
 </section>
 
 <section class="game-grid">
-
   <article class="game-card" *ngFor="let producto of productos">
-
     <img
       [src]="producto.imagen"
       [alt]="producto.nombre"
@@ -18,17 +16,43 @@
       Categoría: {{ producto.categoria }}
     </p>
 
-    <p class="price">
-      ${{ producto.precio }}
-    </p>
+    <div class="price-row">
+      <p class="price">
+        ${{ producto.precio }}
+      </p>
 
-    <p
-      class="discount"
-      *ngIf="producto.descuento > 0"
-    >
-      {{ producto.descuento }}% de descuento
-    </p>
+      <p class="discount" *ngIf="producto.descuento > 0">
+        {{ producto.descuento }}% de descuento
+      </p>
+    </div>
+
+    <div class="card-actions">
+      <a class="product-link" [routerLink]="['/producto', producto.id]">
+        Ver detalle
+      </a>
+    </div>
 
   </article>
+</section>
 
+<section class="category-navigation" *ngIf="categoriaSeleccionada">
+  <a
+    *ngIf="categoriaAnterior"
+    class="product-link"
+    [routerLink]="['/catalogo', categoriaAnterior]"
+  >
+    Categoría anterior
+  </a>
+
+  <a class="product-link" routerLink="/">
+    Volver al inicio
+  </a>
+
+  <a
+    *ngIf="categoriaSiguiente"
+    class="product-link"
+    [routerLink]="['/catalogo', categoriaSiguiente]"
+  >
+    Siguiente categoría
+  </a>
 </section>

@@ -1,11 +1,6 @@
-<section class="hero-section text-center">
-
-  <h2>Bienvenido a Arcadia Store</h2>
-
-  <p>
-    Descubre juegos de mesa para todos los gustos y edades.
-  </p>
-
+<section class="hero text-center">
+  <h2>Catálogo de juegos de mesa</h2>
+  <p>Explora nuestras categorías y encuentra juegos para cada tipo de jugador.</p>
 </section>
 
 <section class="category-grid">
@@ -26,7 +21,7 @@
       {{ categoria.descripcion }}
     </p>
 
-    <a routerLink="/catalogo">
+    <a [routerLink]="['/catalogo', categoria.nombre.toLowerCase()]">
       Ver categoría
     </a>
 

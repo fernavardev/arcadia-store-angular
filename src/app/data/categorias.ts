@@ -9,19 +9,19 @@ export const CATEGORIAS: Categoria[] = [
   {
     id: 1,
     nombre: 'Estrategia',
-    descripcion: 'Juegos para planificar, administrar recursos y tomar decisiones.',
+    descripcion: 'Juegos para planificar, conquistar y tomar decisiones tácticas.',
     imagen: '/img/categorias/estrategia.jpg'
   },
   {
     id: 2,
     nombre: 'Familiares',
-    descripcion: 'Experiencias accesibles para compartir con amigos y familia.',
+    descripcion: 'Opciones simples y entretenidas para jugar en grupo.',
     imagen: '/img/categorias/familiares.jpg'
   },
   {
     id: 3,
     nombre: 'Cartas',
-    descripcion: 'Partidas rápidas basadas en cartas y mecánicas dinámicas.',
+    descripcion: 'Juegos rápidos, dinámicos y fáciles de transportar.',
     imagen: '/img/categorias/cartas.jpg'
   },
   {

@@ -7,6 +7,7 @@ import { Registro } from './pages/registro/registro';
 export const routes: Routes = [
   { path: '', component: Inicio },
   { path: 'catalogo', component: Catalogo },
+  { path: 'catalogo/:categoria', component: Catalogo },
   { path: 'producto/:id', component: DetalleProducto },
   { path: 'registro', component: Registro },
   { path: '**', redirectTo: '' }
