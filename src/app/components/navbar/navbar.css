@@ -1,0 +1,12 @@
+.nav-button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,47 @@
+<section class="container">
+  <div class="page-title text-center">
+    <h2>Mi perfil</h2>
+    <p>Actualiza los datos de tu cuenta en Arcadia Store.</p>
+  </div>
+
+  <div *ngIf="usuarioActual; else sinSesion" class="register-section">
+    <form class="register-form" (ngSubmit)="guardarCambios()">
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" class="form-control" [(ngModel)]="usuarioActual.nombre">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="usuario">Usuario</label>
+          <input id="usuario" name="usuario" class="form-control" [(ngModel)]="usuarioActual.usuario">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="email">Correo</label>
+          <input id="email" name="email" type="email" class="form-control" [(ngModel)]="usuarioActual.email">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="direccion">Dirección</label>
+          <input id="direccion" name="direccion" class="form-control" [(ngModel)]="usuarioActual.direccion">
+        </div>
+      </div>
+
+      <div class="register-buttons">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      </div>
+
+      <div *ngIf="mensajeExito" class="success-message">
+        Perfil actualizado correctamente.
+      </div>
+    </form>
+  </div>
+
+  <ng-template #sinSesion>
+    <div class="text-center register-section">
+      <p>No hay una sesión activa.</p>
+      <a routerLink="/login" class="btn btn-primary">Iniciar sesión</a>
+    </div>
+  </ng-template>
+</section>

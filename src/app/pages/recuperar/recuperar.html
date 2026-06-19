@@ -1,0 +1,70 @@
+<section class="container">
+  <div class="page-title text-center">
+    <h2>Recuperar contraseña</h2>
+    <p>Ingresa tu correo para simular la recuperación de acceso.</p>
+  </div>
+
+  <section class="register-section">
+    <form class="register-form" (ngSubmit)="recuperarPassword()">
+      <div class="row g-4">
+        <div class="col-12">
+          <label for="recuperarCorreo" class="form-label">Correo electrónico</label>
+          <input
+            type="email"
+            id="recuperarCorreo"
+            name="recuperarCorreo"
+            class="form-control"
+            placeholder="usuario@correo.com"
+            [(ngModel)]="correo"
+            [disabled]="usuarioRecuperado"
+          >
+          <div *ngIf="error && !usuarioRecuperado" class="error-message">
+            {{ error }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="usuarioRecuperado" class="row g-4 mt-2">
+        <div class="col-12 col-md-6">
+          <label for="nuevaPassword" class="form-label">Nueva contraseña</label>
+          <input
+            type="password"
+            id="nuevaPassword"
+            name="nuevaPassword"
+            class="form-control"
+            placeholder="Nueva contraseña"
+            [(ngModel)]="nuevaPassword"
+          >
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label for="repetirNuevaPassword" class="form-label">Repetir nueva contraseña</label>
+          <input
+            type="password"
+            id="repetirNuevaPassword"
+            name="repetirNuevaPassword"
+            class="form-control"
+            placeholder="Repite la nueva contraseña"
+            [(ngModel)]="repetirNuevaPassword"
+          >
+        </div>
+
+        <div *ngIf="error" class="col-12 error-message">
+          {{ error }}
+        </div>
+      </div>
+
+      <div class="register-buttons">
+        <button type="submit" class="btn btn-primary">
+          {{ usuarioRecuperado ? 'Guardar nueva contraseña' : 'Buscar cuenta' }}
+        </button>
+
+        <a routerLink="/login" class="btn btn-secondary">Volver al login</a>
+      </div>
+
+      <div *ngIf="mensaje" class="success-message" style="display: block;">
+        {{ mensaje }}
+      </div>
+    </form>
+  </section>
+</section>

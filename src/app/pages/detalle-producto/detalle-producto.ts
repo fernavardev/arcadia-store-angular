@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PRODUCTOS, Producto } from '../../data/productos';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Product } from '../../services/product';
+import { Cart } from '../../services/cart';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -10,20 +12,37 @@ import { PRODUCTOS, Producto } from '../../data/productos';
   styleUrl: './detalle-producto.css',
 })
 export class DetalleProducto {
-
-  producto?: Producto;
+  producto?: any;
   rutaRetorno = '/';
+  mensajeCarrito = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private product: Product,
+    private cart: Cart,
+    private auth: Auth
+  ) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.producto = PRODUCTOS.find(producto => producto.id === id);
+    this.producto = this.product.getProductById(id);
 
     if (this.producto) {
-      this.rutaRetorno =
-        '/catalogo/' +
-        this.producto.categoria.toLowerCase();
+      this.rutaRetorno = '/catalogo/' + this.producto.categoria.toLowerCase();
     }
-    
+  }
+
+  agregarAlCarrito() {
+    if (!this.auth.isLoggedIn() || this.auth.getCurrentUser()?.rol !== 'cliente') {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (!this.producto || this.producto.stock <= 0) {
+      return;
+    }
+
+    this.cart.addToCart(this.producto);
+    this.router.navigate(['/carrito']);
   }
 }

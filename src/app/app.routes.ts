@@ -3,6 +3,14 @@ import { Inicio } from './pages/inicio/inicio';
 import { Catalogo } from './pages/catalogo/catalogo';
 import { DetalleProducto } from './pages/detalle-producto/detalle-producto';
 import { Registro } from './pages/registro/registro';
+import { Recuperar } from './pages/recuperar/recuperar';
+import { Login } from './pages/login/login';
+import { Perfil } from './pages/perfil/perfil';
+import { MisCompras } from './pages/mis-compras/mis-compras';
+import { Carrito } from './pages/carrito/carrito';
+import { AdminProductos } from './pages/admin-productos/admin-productos';
+import { AdminInventario } from './pages/admin-inventario/admin-inventario';
+import { AdminUsuarios } from './pages/admin-usuarios/admin-usuarios';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
@@ -10,5 +18,13 @@ export const routes: Routes = [
   { path: 'catalogo/:categoria', component: Catalogo },
   { path: 'producto/:id', component: DetalleProducto },
   { path: 'registro', component: Registro },
+  { path: 'recuperar', component: Recuperar },
+  { path: 'login', component: Login },
+  { path: 'perfil', component: Perfil },
+  { path: 'mis-compras', component: MisCompras },
+  { path: 'carrito', component: Carrito },
+  { path: 'admin/productos', component: AdminProductos },
+  { path: 'admin/inventario', component: AdminInventario },
+  { path: 'admin/usuarios', component: AdminUsuarios },
   { path: '**', redirectTo: '' }
 ];

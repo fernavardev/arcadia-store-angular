@@ -5,10 +5,31 @@
 
 <nav class="site-nav container">
   <a routerLink="/">Inicio</a>
-  <a routerLink="/catalogo/estrategia">Estrategia</a>
-  <a routerLink="/catalogo/familiares">Familiares</a>
-  <a routerLink="/catalogo/cartas">Cartas</a>
-  <a routerLink="/catalogo/cooperativos">Cooperativos</a>
-  <a routerLink="/registro">Registro</a>
-  <a routerLink="/login">Login</a>
+
+  <ng-container *ngIf="!estaLogueado">
+    <a routerLink="/catalogo/estrategia">Estrategia</a>
+    <a routerLink="/catalogo/familiares">Familiares</a>
+    <a routerLink="/catalogo/cartas">Cartas</a>
+    <a routerLink="/catalogo/cooperativos">Cooperativos</a>
+    <a routerLink="/registro">Registro</a>
+    <a routerLink="/login">Login</a>
+  </ng-container>
+
+  <ng-container *ngIf="estaLogueado && !esAdmin">
+    <a routerLink="/catalogo/estrategia">Estrategia</a>
+    <a routerLink="/catalogo/familiares">Familiares</a>
+    <a routerLink="/catalogo/cartas">Cartas</a>
+    <a routerLink="/catalogo/cooperativos">Cooperativos</a>
+    <a routerLink="/perfil">Perfil</a>
+    <a routerLink="/mis-compras">Mis compras</a>
+    <a routerLink="/carrito">Carrito</a>
+    <button type="button" class="nav-button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </ng-container>
+
+  <ng-container *ngIf="estaLogueado && esAdmin">
+    <a routerLink="/admin/productos">Productos</a>
+    <a routerLink="/admin/inventario">Inventario</a>
+    <a routerLink="/admin/usuarios">Usuarios</a>
+    <button type="button" class="nav-button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </ng-container>
 </nav>

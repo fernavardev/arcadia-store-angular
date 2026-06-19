@@ -1,0 +1,96 @@
+<section class="container">
+  <div class="page-title text-center">
+    <h2>Administrar productos</h2>
+    <p>Registra nuevos productos para el catálogo simulado de Arcadia Store.</p>
+  </div>
+
+  <section class="register-section">
+    <form class="register-form" (ngSubmit)="guardarProducto()">
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <label class="form-label">Nombre del producto</label>
+          <input type="text" class="form-control" name="nombre" [(ngModel)]="nombre">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Categoría</label>
+          <select class="form-control" name="categoria" [(ngModel)]="categoria">
+            <option value="">Selecciona una categoría</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Familiares">Familiares</option>
+            <option value="Cartas">Cartas</option>
+            <option value="Cooperativos">Cooperativos</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Precio</label>
+          <input type="number" class="form-control" name="precio" [(ngModel)]="precio">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Stock</label>
+          <input type="number" class="form-control" name="stock" [(ngModel)]="stock">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Descuento</label>
+          <input type="number" class="form-control" name="descuento" [(ngModel)]="descuento">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Ruta de imagen</label>
+          <input
+            type="text"
+            class="form-control"
+            name="imagen"
+            placeholder="/img/juegos/default.png"
+            [(ngModel)]="imagen"
+          >
+        </div>
+      </div>
+
+      <div class="register-buttons">
+        <button type="submit" class="btn btn-primary">Guardar producto</button>
+      </div>
+
+      <div *ngIf="errorProducto" class="error-message">
+        {{ errorProducto }}
+      </div>
+
+      <div *ngIf="mensajeProducto" class="success-message" style="display: block;">
+        {{ mensajeProducto }}
+      </div>
+    </form>
+  </section>
+
+  <section class="table-responsive mt-4">
+    <table class="table table-dark table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Descuento</th>
+          <th>Imagen</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngIf="productos.length === 0">
+          <td colspan="6" class="text-center">No hay productos registrados.</td>
+        </tr>
+
+        <tr *ngFor="let producto of productos">
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.categoria }}</td>
+          <td>${{ producto.precio.toLocaleString('es-CL') }}</td>
+          <td>{{ producto.stock }}</td>
+          <td>{{ producto.descuento > 0 ? producto.descuento + '% de descuento' : 'Sin descuento' }}</td>
+          <td>{{ producto.imagen || 'Sin imagen' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>

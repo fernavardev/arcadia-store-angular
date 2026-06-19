@@ -1,0 +1,45 @@
+<section class="container">
+  <div class="page-title text-center">
+    <h2>Usuarios registrados</h2>
+    <p>Visualiza usuarios y simula la asignación de privilegios administrativos.</p>
+  </div>
+
+  <section class="table-responsive">
+    <table class="table table-dark table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngIf="usuarios.length === 0">
+          <td colspan="4" class="text-center">No hay usuarios registrados.</td>
+        </tr>
+
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.rol }}</td>
+          <td>
+            <button
+              *ngIf="usuario.rol === 'cliente'"
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="convertirEnAdmin(usuario.id)"
+            >
+              Convertir en admin
+            </button>
+
+            <span *ngIf="usuario.rol === 'admin'" class="badge bg-secondary">
+              Administrador
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>

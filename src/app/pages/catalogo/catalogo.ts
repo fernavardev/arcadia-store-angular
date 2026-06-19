@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PRODUCTOS } from '../../data/productos';
+import { Product } from '../../services/product';
 
 @Component({
   selector: 'app-catalogo',
@@ -10,7 +10,7 @@ import { PRODUCTOS } from '../../data/productos';
   styleUrl: './catalogo.css',
 })
 export class Catalogo {
-  productos = PRODUCTOS;
+  productos: any[] = [];
   categoriaSeleccionada: string | null = null;
 
   ordenCategorias = ['estrategia', 'familiares', 'cartas', 'cooperativos'];
@@ -41,14 +41,15 @@ export class Catalogo {
     descripcion: 'Explora nuestra selección de juegos de mesa.',
   };
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private product: Product
+  ) {
     this.route.paramMap.subscribe(params => {
       this.categoriaSeleccionada = params.get('categoria');
 
       if (this.categoriaSeleccionada) {
-        this.productos = PRODUCTOS.filter(producto =>
-          producto.categoria.toLowerCase() === this.categoriaSeleccionada
-        );
+        this.productos = this.product.getProductsByCategory(this.categoriaSeleccionada);
 
         this.infoCategoria = this.titulosCategoria[this.categoriaSeleccionada];
 
@@ -56,7 +57,7 @@ export class Catalogo {
         this.categoriaAnterior = this.ordenCategorias[indice - 1] || '';
         this.categoriaSiguiente = this.ordenCategorias[indice + 1] || '';
       } else {
-        this.productos = PRODUCTOS;
+        this.productos = this.product.getProducts();
 
         this.infoCategoria = {
           titulo: 'Catálogo de juegos',

@@ -5,10 +5,7 @@
 
 <section class="product-detail" *ngIf="producto; else productoNoEncontrado">
   <div class="product-detail-image">
-    <img
-      [src]="producto.imagen"
-      [alt]="producto.nombre"
-    >
+    <img [src]="producto.imagen" [alt]="producto.nombre">
   </div>
 
   <div class="product-detail-info">
@@ -36,9 +33,19 @@
       Stock disponible: {{ producto.stock }}
     </p>
 
-    <a class="product-link" [routerLink]="rutaRetorno">
-      Volver a la categoría
-    </a>
+    <div class="register-buttons">
+      <button type="button" class="btn btn-primary" (click)="agregarAlCarrito()">
+        Agregar al carrito
+      </button>
+
+      <a class="btn btn-secondary" [routerLink]="rutaRetorno">
+        Volver a la categoría
+      </a>
+    </div>
+
+    <div *ngIf="mensajeCarrito" class="success-message" style="display: block;">
+      {{ mensajeCarrito }}
+    </div>
   </div>
 </section>
 
