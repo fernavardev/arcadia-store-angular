@@ -1,75 +1,101 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Product } from '../../services/product';
 
 @Component({
   selector: 'app-admin-productos',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './admin-productos.html',
   styleUrl: './admin-productos.css',
 })
 export class AdminProductos {
-  nombre = '';
-  categoria = '';
-  precio: number | null = null;
-  stock: number | null = null;
-  descuento: number | null = 0;
-  imagen = '';
+  productoForm: FormGroup;
+  enviado = false;
 
   mensajeProducto = '';
   errorProducto = '';
 
-  constructor(private product: Product) {}
+  constructor(
+    private fb: FormBuilder,
+    private product: Product
+  ) {
+    this.productoForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      categoria: ['', [Validators.required]],
+      precio: [null, [Validators.required, Validators.min(1)]],
+      stock: [null, [Validators.required, Validators.min(0)]],
+      descuento: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      imagen: [''],
+    });
+  }
 
   get productos(): any[] {
     return this.product.getProducts();
   }
 
+  get controles(): { [key: string]: AbstractControl } {
+    return this.productoForm.controls;
+  }
+
+  campoInvalido(nombreCampo: string): boolean {
+    const control = this.productoForm.get(nombreCampo);
+
+    return !!(
+      control &&
+      control.invalid &&
+      (control.touched || control.dirty || this.enviado)
+    );
+  }
+
   guardarProducto(): void {
+    this.enviado = true;
     this.mensajeProducto = '';
     this.errorProducto = '';
 
-    if (
-      this.nombre.trim() === '' ||
-      this.categoria === '' ||
-      !this.precio ||
-      this.precio <= 0 ||
-      this.stock === null ||
-      this.stock < 0
-    ) {
+    if (this.productoForm.invalid) {
+      this.productoForm.markAllAsTouched();
       this.errorProducto = 'Completa correctamente los campos obligatorios.';
       return;
     }
 
-    if (
-      this.descuento !== null &&
-      (this.descuento < 0 || this.descuento > 100)
-    ) {
-      this.errorProducto = 'El descuento debe estar entre 0 y 100.';
-      return;
-    }
+    const datos = this.productoForm.getRawValue();
 
     this.product.addProduct({
-      nombre: this.nombre.trim(),
-      categoria: this.categoria,
-      precio: this.precio,
-      stock: this.stock,
-      descuento: this.descuento || 0,
-      imagen: this.imagen.trim() || '/img/juegos/default.png',
+      nombre: datos.nombre.trim(),
+      categoria: datos.categoria,
+      precio: Number(datos.precio),
+      stock: Number(datos.stock),
+      descuento: Number(datos.descuento) || 0,
+      imagen: datos.imagen.trim() || '/img/juegos/default.png',
       descripcion: 'Producto agregado desde el panel de administración.',
     });
 
     this.mensajeProducto = 'Producto registrado correctamente.';
-    this.limpiarFormulario();
+    this.limpiarFormulario(false);
   }
 
-  limpiarFormulario(): void {
-    this.nombre = '';
-    this.categoria = '';
-    this.precio = null;
-    this.stock = null;
-    this.descuento = 0;
-    this.imagen = '';
+  limpiarFormulario(limpiarMensajes = true): void {
+    this.productoForm.reset({
+      nombre: '',
+      categoria: '',
+      precio: null,
+      stock: null,
+      descuento: 0,
+      imagen: '',
+    });
+
+    this.enviado = false;
+
+    if (limpiarMensajes) {
+      this.mensajeProducto = '';
+      this.errorProducto = '';
+    }
   }
 }

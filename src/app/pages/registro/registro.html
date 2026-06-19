@@ -6,41 +6,99 @@
 </section>
 
 <section class="register-section">
-  <form class="register-form" (ngSubmit)="registrar()">
+  <form class="register-form" [formGroup]="registroForm" (ngSubmit)="registrar()" novalidate>
     <div class="row g-4">
       <div class="col-12 col-md-6">
         <label for="nombre" class="form-label">Nombre completo</label>
-        <input type="text" id="nombre" class="form-control" placeholder="Ingresa tu nombre completo" [(ngModel)]="nombre" name="nombre">
+        <input
+          type="text"
+          id="nombre"
+          class="form-control"
+          placeholder="Ingresa tu nombre completo"
+          formControlName="nombre"
+          [class.is-invalid]="campoInvalido('nombre')"
+        >
+        <div class="invalid-feedback">Ingresa al menos 3 caracteres.</div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="usuario" class="form-label">Nombre de usuario</label>
-        <input type="text" id="usuario" class="form-control" placeholder="Ingresa un nombre de usuario" [(ngModel)]="usuario" name="usuario">
+        <input
+          type="text"
+          id="usuario"
+          class="form-control"
+          placeholder="Ingresa un nombre de usuario"
+          formControlName="usuario"
+          [class.is-invalid]="campoInvalido('usuario')"
+        >
+        <div class="invalid-feedback">Ingresa al menos 3 caracteres.</div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="correo" class="form-label">Correo electrónico</label>
-        <input type="email" id="correo" class="form-control" placeholder="usuario@correo.com" [(ngModel)]="correo" name="correo">
+        <input
+          type="email"
+          id="correo"
+          class="form-control"
+          placeholder="usuario@correo.com"
+          formControlName="correo"
+          [class.is-invalid]="campoInvalido('correo')"
+        >
+        <div class="invalid-feedback">Ingresa un correo válido.</div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
-        <input type="date" id="fechaNacimiento" class="form-control" [(ngModel)]="fechaNacimiento" name="fechaNacimiento">
+        <input
+          type="date"
+          id="fechaNacimiento"
+          class="form-control"
+          formControlName="fechaNacimiento"
+          [class.is-invalid]="campoInvalido('fechaNacimiento')"
+        >
+        <div class="invalid-feedback">Debes tener al menos 13 años.</div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password">
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Ingresa tu contraseña"
+          formControlName="password"
+          [class.is-invalid]="campoInvalido('password')"
+        >
+        <div class="invalid-feedback">
+          La contraseña debe tener entre 6 y 18 caracteres, mayúscula, número y carácter especial.
+        </div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="repetirPassword" class="form-label">Repetir contraseña</label>
-        <input type="password" id="repetirPassword" class="form-control" placeholder="Repite tu contraseña" [(ngModel)]="repetirPassword" name="repetirPassword">
+        <input
+          type="password"
+          id="repetirPassword"
+          class="form-control"
+          placeholder="Repite tu contraseña"
+          formControlName="repetirPassword"
+          [class.is-invalid]="
+            campoInvalido('repetirPassword') ||
+            (registroForm.hasError('passwordsNoCoinciden') && (controles['repetirPassword'].touched || enviado))
+          "
+        >
+        <div class="invalid-feedback">Las contraseñas deben coincidir.</div>
       </div>
 
       <div class="col-12">
         <label for="direccion" class="form-label">Dirección de despacho (opcional)</label>
-        <textarea id="direccion" class="form-control" rows="3" placeholder="Ingresa tu dirección" [(ngModel)]="direccion" name="direccion"></textarea>
+        <textarea
+          id="direccion"
+          class="form-control"
+          rows="3"
+          placeholder="Ingresa tu dirección"
+          formControlName="direccion"
+        ></textarea>
       </div>
     </div>
 
@@ -52,6 +110,10 @@
       <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
         Limpiar formulario
       </button>
+    </div>
+
+    <div class="error-message" *ngIf="mensajeError">
+      {{ mensajeError }}
     </div>
 
     <div class="success-message" *ngIf="registroExitoso">

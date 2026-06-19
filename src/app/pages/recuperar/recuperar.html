@@ -5,19 +5,22 @@
   </div>
 
   <section class="register-section">
-    <form class="register-form" (ngSubmit)="recuperarPassword()">
+    <form class="register-form" [formGroup]="recuperarForm" (ngSubmit)="recuperarPassword()" novalidate>
       <div class="row g-4">
         <div class="col-12">
           <label for="recuperarCorreo" class="form-label">Correo electrónico</label>
           <input
             type="email"
             id="recuperarCorreo"
-            name="recuperarCorreo"
             class="form-control"
             placeholder="usuario@correo.com"
-            [(ngModel)]="correo"
-            [disabled]="usuarioRecuperado"
+            formControlName="correo"
+            [class.is-invalid]="campoInvalido('correo')"
           >
+          <div class="invalid-feedback">
+            Ingresa un correo válido.
+          </div>
+
           <div *ngIf="error && !usuarioRecuperado" class="error-message">
             {{ error }}
           </div>
@@ -30,11 +33,14 @@
           <input
             type="password"
             id="nuevaPassword"
-            name="nuevaPassword"
             class="form-control"
             placeholder="Nueva contraseña"
-            [(ngModel)]="nuevaPassword"
+            formControlName="nuevaPassword"
+            [class.is-invalid]="campoInvalido('nuevaPassword')"
           >
+          <div class="invalid-feedback">
+            La contraseña debe tener entre 6 y 18 caracteres, mayúscula, minúscula y número.
+          </div>
         </div>
 
         <div class="col-12 col-md-6">
@@ -42,11 +48,17 @@
           <input
             type="password"
             id="repetirNuevaPassword"
-            name="repetirNuevaPassword"
             class="form-control"
             placeholder="Repite la nueva contraseña"
-            [(ngModel)]="repetirNuevaPassword"
+            formControlName="repetirNuevaPassword"
+            [class.is-invalid]="
+              campoInvalido('repetirNuevaPassword') ||
+              (recuperarForm.hasError('passwordsNoCoinciden') && (controles['repetirNuevaPassword'].touched || enviado))
+            "
           >
+          <div class="invalid-feedback">
+            Las contraseñas deben coincidir.
+          </div>
         </div>
 
         <div *ngIf="error" class="col-12 error-message">
@@ -57,6 +69,10 @@
       <div class="register-buttons">
         <button type="submit" class="btn btn-primary">
           {{ usuarioRecuperado ? 'Guardar nueva contraseña' : 'Buscar cuenta' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+          Limpiar
         </button>
 
         <a routerLink="/login" class="btn btn-secondary">Volver al login</a>

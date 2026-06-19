@@ -5,37 +5,66 @@
   </div>
 
   <section class="register-section">
-    <form class="register-form" (ngSubmit)="guardarProducto()">
+    <form class="register-form" [formGroup]="productoForm" (ngSubmit)="guardarProducto()" novalidate>
       <div class="row g-4">
         <div class="col-12 col-md-6">
           <label class="form-label">Nombre del producto</label>
-          <input type="text" class="form-control" name="nombre" [(ngModel)]="nombre">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [class.is-invalid]="campoInvalido('nombre')"
+          >
+          <div class="invalid-feedback">Ingresa un nombre de al menos 3 caracteres.</div>
         </div>
 
         <div class="col-12 col-md-6">
           <label class="form-label">Categoría</label>
-          <select class="form-control" name="categoria" [(ngModel)]="categoria">
+          <select
+            class="form-control"
+            formControlName="categoria"
+            [class.is-invalid]="campoInvalido('categoria')"
+          >
             <option value="">Selecciona una categoría</option>
             <option value="Estrategia">Estrategia</option>
             <option value="Familiares">Familiares</option>
             <option value="Cartas">Cartas</option>
             <option value="Cooperativos">Cooperativos</option>
           </select>
+          <div class="invalid-feedback">Selecciona una categoría.</div>
         </div>
 
         <div class="col-12 col-md-6">
           <label class="form-label">Precio</label>
-          <input type="number" class="form-control" name="precio" [(ngModel)]="precio">
+          <input
+            type="number"
+            class="form-control"
+            formControlName="precio"
+            [class.is-invalid]="campoInvalido('precio')"
+          >
+          <div class="invalid-feedback">Ingresa un precio mayor a 0.</div>
         </div>
 
         <div class="col-12 col-md-6">
           <label class="form-label">Stock</label>
-          <input type="number" class="form-control" name="stock" [(ngModel)]="stock">
+          <input
+            type="number"
+            class="form-control"
+            formControlName="stock"
+            [class.is-invalid]="campoInvalido('stock')"
+          >
+          <div class="invalid-feedback">Ingresa un stock igual o superior a 0.</div>
         </div>
 
         <div class="col-12 col-md-6">
           <label class="form-label">Descuento</label>
-          <input type="number" class="form-control" name="descuento" [(ngModel)]="descuento">
+          <input
+            type="number"
+            class="form-control"
+            formControlName="descuento"
+            [class.is-invalid]="campoInvalido('descuento')"
+          >
+          <div class="invalid-feedback">El descuento debe estar entre 0 y 100.</div>
         </div>
 
         <div class="col-12 col-md-6">
@@ -43,15 +72,18 @@
           <input
             type="text"
             class="form-control"
-            name="imagen"
             placeholder="/img/juegos/default.png"
-            [(ngModel)]="imagen"
+            formControlName="imagen"
           >
         </div>
       </div>
 
       <div class="register-buttons">
         <button type="submit" class="btn btn-primary">Guardar producto</button>
+
+        <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+          Limpiar
+        </button>
       </div>
 
       <div *ngIf="errorProducto" class="error-message">
