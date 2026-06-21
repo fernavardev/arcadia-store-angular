@@ -4,22 +4,25 @@
 </header>
 
 <nav class="site-nav container">
+  <button
+    type="button"
+    class="hamburger-button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#categoryMenu"
+    aria-controls="categoryMenu"
+    aria-label="Abrir menú de categorías"
+  >
+    ☰ Categorías
+  </button>
+
   <a routerLink="/">Inicio</a>
 
   <ng-container *ngIf="!estaLogueado">
-    <a routerLink="/catalogo/estrategia">Estrategia</a>
-    <a routerLink="/catalogo/familiares">Familiares</a>
-    <a routerLink="/catalogo/cartas">Cartas</a>
-    <a routerLink="/catalogo/cooperativos">Cooperativos</a>
     <a routerLink="/registro">Registro</a>
     <a routerLink="/login">Login</a>
   </ng-container>
 
   <ng-container *ngIf="estaLogueado && !esAdmin">
-    <a routerLink="/catalogo/estrategia">Estrategia</a>
-    <a routerLink="/catalogo/familiares">Familiares</a>
-    <a routerLink="/catalogo/cartas">Cartas</a>
-    <a routerLink="/catalogo/cooperativos">Cooperativos</a>
     <a routerLink="/perfil">Perfil</a>
     <a routerLink="/mis-compras">Mis compras</a>
     <a routerLink="/carrito">Carrito</a>
@@ -33,3 +36,44 @@
     <button type="button" class="nav-button" (click)="cerrarSesion()">Cerrar sesión</button>
   </ng-container>
 </nav>
+
+<div
+  class="offcanvas offcanvas-start arcadia-offcanvas"
+  tabindex="-1"
+  id="categoryMenu"
+  aria-labelledby="categoryMenuLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="categoryMenuLabel">Categorías</h5>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Cerrar"
+    ></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <p class="category-menu-text">
+      Explora los juegos disponibles por tipo de experiencia.
+    </p>
+
+    <nav class="category-menu-links">
+      <a routerLink="/catalogo/estrategia" data-bs-dismiss="offcanvas">
+        Estrategia
+      </a>
+
+      <a routerLink="/catalogo/familiares" data-bs-dismiss="offcanvas">
+        Familiares
+      </a>
+
+      <a routerLink="/catalogo/cartas" data-bs-dismiss="offcanvas">
+        Cartas
+      </a>
+
+      <a routerLink="/catalogo/cooperativos" data-bs-dismiss="offcanvas">
+        Cooperativos
+      </a>
+    </nav>
+  </div>
+</div>

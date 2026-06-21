@@ -77,6 +77,19 @@
           >
         </div>
       </div>
+      
+      <div class="col-12">
+        <label class="form-label">Descripción</label>
+        <textarea
+          class="form-control"
+          rows="3"
+          formControlName="descripcion"
+          [class.is-invalid]="campoInvalido('descripcion')"
+        ></textarea>
+        <div class="invalid-feedback">
+          Ingresa una descripción de al menos 10 caracteres.
+        </div>
+      </div>
 
       <div class="register-buttons">
         <button type="submit" class="btn btn-primary">Guardar producto</button>

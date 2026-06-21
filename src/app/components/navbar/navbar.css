@@ -1,4 +1,5 @@
-.nav-button {
+.nav-button,
+.hamburger-button {
   background: transparent;
   border: none;
   color: inherit;
@@ -7,6 +8,45 @@
   padding: 0;
 }
 
-.nav-button:hover {
+.nav-button:hover,
+.hamburger-button:hover {
   text-decoration: underline;
+}
+
+.hamburger-button {
+  font-weight: 600;
+}
+
+.arcadia-offcanvas {
+  background-color: #17141f;
+  color: #f5f0ff;
+}
+
+.arcadia-offcanvas .offcanvas-title {
+  color: #ffffff;
+}
+
+.category-menu-text {
+  color: #d7cdea;
+  margin-bottom: 1.5rem;
+}
+
+.category-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-menu-links a {
+  color: #f5f0ff;
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.category-menu-links a:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  transform: translateX(4px);
 }

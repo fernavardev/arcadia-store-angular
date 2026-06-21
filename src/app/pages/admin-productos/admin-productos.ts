@@ -29,6 +29,7 @@ export class AdminProductos {
     this.productoForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       categoria: ['', [Validators.required]],
+      descripcion: ['', [Validators.required, Validators.minLength(10)]],
       precio: [null, [Validators.required, Validators.min(1)]],
       stock: [null, [Validators.required, Validators.min(0)]],
       descuento: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -74,7 +75,7 @@ export class AdminProductos {
       stock: Number(datos.stock),
       descuento: Number(datos.descuento) || 0,
       imagen: datos.imagen.trim() || '/img/juegos/default.png',
-      descripcion: 'Producto agregado desde el panel de administración.',
+      descripcion: datos.descripcion.trim(),
     });
 
     this.mensajeProducto = 'Producto registrado correctamente.';
@@ -85,6 +86,7 @@ export class AdminProductos {
     this.productoForm.reset({
       nombre: '',
       categoria: '',
+      descripcion: '',
       precio: null,
       stock: null,
       descuento: 0,

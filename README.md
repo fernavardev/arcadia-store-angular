@@ -2,9 +2,17 @@
 
 ## Descripción
 
-Evolución del proyecto desarrollado previamente (Arcadia Store) con HTML, CSS, Bootstrap y JavaScript, En esta versión la aplicación es migrada a Angular utilizando componentes, rutas, variables TypeScript y directivas, manteniendo la identidad visual y funcional del proyecto original
+## Descripción
 
-La aplicación permite explorar distintas categorías de juegos de mesa, visualizar información detallada de cada producto y utilizar formularios conectados mediante Angular
+Arcadia Store es una tienda web orientada a la venta y exploración de juegos de mesa, pensada para ofrecer a los usuarios una experiencia simple e intuitiva al momento de navegar por distintas categorías de productos.
+
+La aplicación permite visualizar información detallada de cada juego, registrar usuarios, administrar un carrito de compras, realizar compras simuladas y gestionar distintos módulos dependiendo del tipo de usuario que accede al sistema.
+
+---
+
+## Objetivo del proyecto
+
+El presente proyecto corresponde a la evolución de una versión desarrollada previamente utilizando HTML, CSS, Bootstrap y JavaScript, la cual es migrada a Angular con el objetivo de aprovechar las herramientas que ofrece el framework para construir una aplicación más dinámica e interactiva, incorporando nuevas funcionalidades como formularios reactivos, manejo de usuarios, persistencia de datos, navegación entre componentes y pruebas unitarias.
 
 ---
 
@@ -16,38 +24,99 @@ La aplicación permite explorar distintas categorías de juegos de mesa, visuali
 * CSS3
 * Bootstrap 5
 * Angular Router
-* Angular Forms (ngModel)
-* GitHub
-* Trello
+* Reactive Forms
+* LocalStorage / SessionStorage
+* Vitest (Angular Test Runner para pruebas unitarias)
+* GitHub (versionado de codigo)
+* Trello (organizacion del desarrollo)
 
 ---
 
 ## Funcionalidades implementadas
 
-### Inicio
+### Navegación general
 
-* Visualización de categorías de juegos de mesa
-* Navegación entre secciones de la aplicación
-* Diseño responsivo
+* Sistema de rutas mediante Angular Router
+* Navbar dinámico según sesión activa
+* Menú hamburguesa lateral para navegación por categorías
+* Navegación condicional según rol de usuario
 
-### Catálogo
+---
 
-* Visualización dinámica de productos mediante datos estáticos en TypeScript
-* Filtrado de productos por categoría
-* Navegación entre categorías
-* Uso de directivas Angular (`ngFor` y `ngIf`)
+### Cliente
 
-### Detalle de producto
+* Registro de usuarios con persistencia local
+* Inicio de sesión
+* Recuperación de contraseña
+* Edición de perfil
+* Navegación por categorías
+* Visualización de detalle de productos
+* Agregar productos al carrito
+* Modificación dinámica de cantidades
+* Finalización de compra
+* Historial de compras por usuario
 
-* Vista dinámica basada en el identificador del producto
-* Información detallada del juego seleccionado
-* Navegación de retorno a la categoría correspondiente
+---
 
-### Registro
+### Administración
 
-* Formulario de registro migrado desde la versión anterior
-* Uso de `ngModel` para el enlace de datos
-* Simulación (persistencia no implementada aun) de registro exitoso mediante Angular
+* Inicio de sesión mediante usuarios administradores semilla
+* Registro de nuevos productos
+* Persistencia dinámica del catálogo
+* Inventario automático de productos registrados
+* Administración de usuarios
+* Conversión de usuario cliente a administrador
+
+---
+
+### Persistencia de datos simulada
+
+El sistema utiliza almacenamiento local del navegador para simular persistencia de datos:
+
+* LocalStorage para usuarios, productos, carrito y compras
+* SessionStorage para sesión activa del usuario
+
+Se incorporan datos semilla automáticos al iniciar la aplicación:
+
+* Usuarios administradores
+* Catálogo inicial de productos
+
+---
+
+## Formularios reactivos implementados
+
+Formularios principales utilizando Angular Reactive Forms:
+
+* Registro
+* Login
+* Recuperación de contraseña
+* Perfil de usuario
+* Administración de productos
+
+Cada formulario incorpora:
+
+* FormGroup
+* FormBuilder
+* Validators
+* Validación visual de campos
+* Manejo de errores
+* Reinicio de formularios
+* Persistencia de datos integrada
+
+---
+
+## Pruebas unitarias implementadas
+
+Como parte del desarrollo se incorporaron algunas pruebas unitarias orientadas a validar el comportamiento de funcionalidades específicas de la aplicación, entre ellas:
+
+* Filtrado correcto de productos según la categoría recibida por ruta.
+* Carga correcta del producto seleccionado según el identificador recibido por ruta.
+
+Ejecución:
+
+```bash
+ng test
+```
 
 ---
 
@@ -57,18 +126,33 @@ La aplicación permite explorar distintas categorías de juegos de mesa, visuali
 src/
 ├── app/
 │   ├── components/
-│   │   ├── footer/
-│   │   └── navbar/
+│   │   ├── navbar/
+│   │   └── footer/
 │   │
 │   ├── data/
 │   │   ├── categorias.ts
-│   │   └── productos.ts
+│   │   ├── productos.ts
+│   │   └── usuarios.ts
+│   │
+│   ├── services/
+│   │   ├── auth.ts
+│   │   ├── cart.ts
+│   │   ├── product.ts
+│   │   └── storage.ts
 │   │
 │   └── pages/
 │       ├── inicio/
 │       ├── catalogo/
 │       ├── detalle-producto/
-│       └── registro/
+│       ├── registro/
+│       ├── login/
+│       ├── recuperar/
+│       ├── perfil/
+│       ├── carrito/
+│       ├── mis-compras/
+│       ├── admin-productos/
+│       ├── admin-inventario/
+│       └── admin-usuarios/
 │
 ├── public/
 │   └── img/
@@ -92,7 +176,7 @@ Ejecutar aplicación:
 ng serve
 ```
 
-Abrir en el navegador:
+Abrir en navegador:
 
 ```text
 http://localhost:4200
