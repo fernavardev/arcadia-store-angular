@@ -11,6 +11,10 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../services/auth';
 
+/**
+ * @description
+ * componente encargado del registro de nuevos usuarios
+ */
 @Component({
   selector: 'app-registro',
   imports: [CommonModule, ReactiveFormsModule],
@@ -51,10 +55,23 @@ export class Registro {
     );
   }
 
+  /**
+   * @description
+   * entrega acceso rapido a los controles del formulario
+   *
+   * @returns controles del formulario de registro
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.registroForm.controls;
   }
 
+  /**
+   * @description
+   * verifica si un campo debe mostrar error de validacion
+   *
+   * @param nombreCampo nombre del campo que se desea revisar
+   * @returns true si el campo es invalido, false en caso contrario
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.registroForm.get(nombreCampo);
 
@@ -65,6 +82,10 @@ export class Registro {
     );
   }
 
+  /**
+   * @description
+   * valida el formulario y registra un nuevo usuario cliente
+   */
   registrar(): void {
     this.enviado = true;
     this.registroExitoso = false;
@@ -94,12 +115,20 @@ export class Registro {
     this.limpiarCampos();
   }
 
+  /**
+   * @description
+   * limpia el formulario y reinicia los mensajes visibles
+   */
   limpiarFormulario(): void {
     this.limpiarCampos();
     this.registroExitoso = false;
     this.mensajeError = '';
   }
 
+  /**
+   * @description
+   * reinicia los campos del formulario de registro
+   */
   private limpiarCampos(): void {
     this.registroForm.reset({
       nombre: '',
@@ -115,6 +144,12 @@ export class Registro {
   }
 }
 
+/**
+ * @description
+ * valida que la contrasena cumpla reglas basicas de seguridad
+ *
+ * @returns validador para contrasena segura
+ */
 function passwordSeguraValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value || '';
@@ -139,6 +174,13 @@ function passwordSeguraValidator(): ValidatorFn {
   };
 }
 
+/**
+ * @description
+ * valida que la fecha de nacimiento cumpla con una edad minima
+ *
+ * @param edadMinima edad minima requerida
+ * @returns validador para edad minima
+ */
 function edadMinimaValidator(edadMinima: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const fechaNacimiento = control.value;
@@ -165,6 +207,14 @@ function edadMinimaValidator(edadMinima: number): ValidatorFn {
   };
 }
 
+/**
+ * @description
+ * valida que dos campos de contrasena tengan el mismo valor
+ *
+ * @param campoPassword nombre del campo de contrasena
+ * @param campoRepetirPassword nombre del campo de confirmacion
+ * @returns validador para comparar contrasenas
+ */
 function passwordsIgualesValidator(
   campoPassword: string,
   campoRepetirPassword: string

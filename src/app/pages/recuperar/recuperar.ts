@@ -12,6 +12,10 @@ import {
 } from '@angular/forms';
 import { Storage } from '../../services/storage';
 
+/**
+ * @description
+ * componente encargado de simular la recuperacion de contrasena
+ */
 @Component({
   selector: 'app-recuperar',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
@@ -48,10 +52,23 @@ export class Recuperar {
     );
   }
 
+  /**
+   * @description
+   * entrega acceso rapido a los controles del formulario
+   *
+   * @returns controles del formulario de recuperacion
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.recuperarForm.controls;
   }
 
+  /**
+   * @description
+   * verifica si un campo debe mostrar error de validacion
+   *
+   * @param nombreCampo nombre del campo que se desea revisar
+   * @returns true si el campo es invalido, false en caso contrario
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.recuperarForm.get(nombreCampo);
 
@@ -62,6 +79,10 @@ export class Recuperar {
     );
   }
 
+  /**
+   * @description
+   * busca la cuenta por correo y permite actualizar la contrasena
+   */
   recuperarPassword(): void {
     this.enviado = true;
     this.error = '';
@@ -128,6 +149,10 @@ export class Recuperar {
     this.limpiarCampos();
   }
 
+  /**
+   * @description
+   * limpia el formulario y vuelve al estado inicial
+   */
   limpiarFormulario(): void {
     this.recuperarForm.get('correo')?.enable();
 
@@ -149,6 +174,10 @@ export class Recuperar {
     this.recuperarForm.get('repetirNuevaPassword')?.updateValueAndValidity();
   }
 
+  /**
+   * @description
+   * reinicia los campos luego de actualizar la contrasena
+   */
   private limpiarCampos(): void {
     this.recuperarForm.get('correo')?.enable();
 
@@ -169,6 +198,12 @@ export class Recuperar {
   }
 }
 
+/**
+ * @description
+ * valida que la nueva contrasena cumpla reglas basicas de seguridad
+ *
+ * @returns validador para contrasena segura
+ */
 function passwordSeguraValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = control.value || '';
@@ -189,6 +224,14 @@ function passwordSeguraValidator(): ValidatorFn {
   };
 }
 
+/**
+ * @description
+ * valida que dos campos de contrasena tengan el mismo valor
+ *
+ * @param campoPassword nombre del campo de contrasena
+ * @param campoRepetirPassword nombre del campo de confirmacion
+ * @returns validador para comparar contrasenas
+ */
 function passwordsIgualesValidator(
   campoPassword: string,
   campoRepetirPassword: string

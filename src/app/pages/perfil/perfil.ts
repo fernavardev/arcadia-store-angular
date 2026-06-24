@@ -10,6 +10,10 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../services/auth';
 
+/**
+ * @description
+ * componente encargado de mostrar y modificar los datos del usuario actual
+ */
 @Component({
   selector: 'app-perfil',
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
@@ -46,10 +50,23 @@ export class Perfil {
     }
   }
 
+  /**
+   * @description
+   * entrega acceso rapido a los controles del formulario
+   *
+   * @returns controles del formulario de perfil
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.perfilForm.controls;
   }
 
+  /**
+   * @description
+   * verifica si un campo debe mostrar error de validacion
+   *
+   * @param nombreCampo nombre del campo que se desea revisar
+   * @returns true si el campo es invalido, false en caso contrario
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.perfilForm.get(nombreCampo);
 
@@ -60,6 +77,10 @@ export class Perfil {
     );
   }
 
+  /**
+   * @description
+   * valida el formulario y guarda los cambios del usuario actual
+   */
   guardarCambios(): void {
     this.enviado = true;
     this.mensajeExito = false;
@@ -87,6 +108,10 @@ export class Perfil {
     this.enviado = false;
   }
 
+  /**
+   * @description
+   * limpia el formulario y reinicia los mensajes visibles
+   */
   limpiarFormulario(): void {
     this.perfilForm.reset({
       nombre: '',

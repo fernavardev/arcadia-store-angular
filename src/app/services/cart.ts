@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Storage } from './storage';
 import { Auth } from './auth';
 
+/**
+ * @description
+ * servicio encargado de manejar el carrito y las compras del usuario.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +19,12 @@ export class Cart {
     private auth: Auth
   ) {}
 
+  /**
+ * @description
+ * obtiene los productos del carrito asociados al usuario actual.
+ *
+ * @returns lista de productos del carrito.
+ */
   getCart(): any[] {
     const currentUser = this.auth.getCurrentUser();
     const cart = this.storage.getLocal<any[]>(this.cartKey) || [];
@@ -26,6 +36,12 @@ export class Cart {
     return cart.filter((item) => item.userEmail === currentUser.email);
   }
 
+  /**
+ * @description
+ * agrega un producto al carrito del usuario actual.
+ *
+ * @param product producto que se desea agregar.
+ */
   addToCart(product: any): void {
     const currentUser = this.auth.getCurrentUser();
 
@@ -55,6 +71,12 @@ export class Cart {
     this.storage.setLocal(this.cartKey, cart);
   }
 
+/**
+ * @description
+ * aumenta la cantidad de un producto dentro del carrito.
+ *
+ * @param productId identificador del producto.
+ */
   increaseQuantity(productId: number): void {
     const currentUser = this.auth.getCurrentUser();
     const cart = this.storage.getLocal<any[]>(this.cartKey) || [];
@@ -69,6 +91,12 @@ export class Cart {
     }
   }
 
+  /**
+ * @description
+ * disminuye la cantidad de un producto dentro del carrito.
+ *
+ * @param productId identificador del producto.
+ */
   decreaseQuantity(productId: number): void {
     const currentUser = this.auth.getCurrentUser();
     let cart = this.storage.getLocal<any[]>(this.cartKey) || [];
@@ -93,6 +121,12 @@ export class Cart {
     this.storage.setLocal(this.cartKey, cart);
   }
 
+  /**
+ * @description
+ * calcula el total actual del carrito.
+ *
+ * @returns total de la compra.
+ */
   getTotal(): number {
     return this.getCart().reduce(
       (total, item) => total + item.precio * item.quantity,
@@ -100,6 +134,12 @@ export class Cart {
     );
   }
 
+  /**
+ * @description
+ * finaliza la compra y guarda el historial del usuario.
+ *
+ * @returns true si la compra se completa, false si no es posible realizarla.
+ */
   finishPurchase(): boolean {
     const currentUser = this.auth.getCurrentUser();
 
@@ -135,6 +175,12 @@ export class Cart {
     return true;
   }
 
+  /**
+ * @description
+ * obtiene las compras realizadas por el usuario actual.
+ *
+ * @returns lista de compras del usuario.
+ */
   getPurchases(): any[] {
     const currentUser = this.auth.getCurrentUser();
 

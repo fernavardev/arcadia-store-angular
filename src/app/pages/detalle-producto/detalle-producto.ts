@@ -5,6 +5,10 @@ import { Product } from '../../services/product';
 import { Cart } from '../../services/cart';
 import { Auth } from '../../services/auth';
 
+/**
+ * @description
+ * componente encargado de mostrar el detalle de un producto
+ */
 @Component({
   selector: 'app-detalle-producto',
   imports: [CommonModule, RouterLink],
@@ -16,6 +20,10 @@ export class DetalleProducto {
   rutaRetorno = '/';
   mensajeCarrito = '';
 
+  /**
+   * @description
+   * obtiene el producto seleccionado usando el id recibido por ruta
+   */
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,6 +40,10 @@ export class DetalleProducto {
     }
   }
 
+  /**
+   * @description
+   * agrega el producto actual al carrito si el usuario tiene sesion de cliente
+   */
   agregarAlCarrito() {
     if (!this.auth.isLoggedIn() || this.auth.getCurrentUser()?.rol !== 'cliente') {
       this.router.navigate(['/login']);

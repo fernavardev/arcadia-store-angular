@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Product } from '../../services/product';
 
+/**
+ * @description
+ * componente encargado de mostrar el catalogo de productos
+ */
 @Component({
   selector: 'app-catalogo',
   imports: [CommonModule, RouterLink],
@@ -41,6 +45,10 @@ export class Catalogo {
     descripcion: 'Explora nuestra selección de juegos de mesa.',
   };
 
+  /**
+   * @description
+   * carga productos segun la categoria recibida desde la ruta
+   */
   constructor(
     private route: ActivatedRoute,
     private product: Product

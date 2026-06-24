@@ -9,6 +9,10 @@ import {
 } from '@angular/forms';
 import { Product } from '../../services/product';
 
+/**
+ * @description
+ * componente encargado de registrar productos desde el panel administrador
+ */
 @Component({
   selector: 'app-admin-productos',
   imports: [CommonModule, ReactiveFormsModule],
@@ -37,14 +41,33 @@ export class AdminProductos {
     });
   }
 
+  /**
+   * @description
+   * obtiene los productos registrados para mostrarlos en la tabla
+   *
+   * @returns lista de productos registrados
+   */
   get productos(): any[] {
     return this.product.getProducts();
   }
 
+  /**
+   * @description
+   * entrega acceso rapido a los controles del formulario
+   *
+   * @returns controles del formulario de productos
+   */
   get controles(): { [key: string]: AbstractControl } {
     return this.productoForm.controls;
   }
 
+  /**
+   * @description
+   * verifica si un campo debe mostrar error de validacion
+   *
+   * @param nombreCampo nombre del campo que se desea revisar
+   * @returns true si el campo es invalido, false en caso contrario
+   */
   campoInvalido(nombreCampo: string): boolean {
     const control = this.productoForm.get(nombreCampo);
 
@@ -55,6 +78,10 @@ export class AdminProductos {
     );
   }
 
+  /**
+   * @description
+   * valida el formulario y registra un nuevo producto en el catalogo
+   */
   guardarProducto(): void {
     this.enviado = true;
     this.mensajeProducto = '';
@@ -82,6 +109,12 @@ export class AdminProductos {
     this.limpiarFormulario(false);
   }
 
+  /**
+   * @description
+   * limpia el formulario de productos y opcionalmente los mensajes visibles
+   *
+   * @param limpiarMensajes indica si se deben limpiar los mensajes del formulario
+   */
   limpiarFormulario(limpiarMensajes = true): void {
     this.productoForm.reset({
       nombre: '',

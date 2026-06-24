@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CATEGORIAS } from '../../data/categorias';
 import { RouterLink } from '@angular/router';
 
+/**
+ * @description
+ * componente encargado de mostrar las categorias principales de la tienda
+ */
 @Component({
   selector: 'app-inicio',
   imports: [CommonModule, RouterLink],
@@ -11,6 +15,10 @@ import { RouterLink } from '@angular/router';
 })
 export class Inicio {
 
+  /**
+   * @description
+   * lista de categorias disponibles en la pagina de inicio
+   */
   categorias = CATEGORIAS;
 
 }
