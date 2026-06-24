@@ -20,4 +20,16 @@ describe('Login', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('deberia iniciar con formulario invalido si los campos estan vacios', () => {
+    expect(component.loginForm.invalid).toBe(true);
+  });
+
+  it('deberia rechazar un correo con formato incorrecto', () => {
+    const correo = component.loginForm.get('correo');
+
+    correo?.setValue('correo-malo');
+
+    expect(correo?.invalid).toBe(true);
+  });
 });
