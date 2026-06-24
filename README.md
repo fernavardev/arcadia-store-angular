@@ -2,8 +2,6 @@
 
 ## Descripción
 
-## Descripción
-
 Arcadia Store es una tienda web orientada a la venta y exploración de juegos de mesa, pensada para ofrecer a los usuarios una experiencia simple e intuitiva al momento de navegar por distintas categorías de productos.
 
 La aplicación permite visualizar información detallada de cada juego, registrar usuarios, administrar un carrito de compras, realizar compras simuladas y gestionar distintos módulos dependiendo del tipo de usuario que accede al sistema.
@@ -27,6 +25,8 @@ El presente proyecto corresponde a la evolución de una versión desarrollada pr
 * Reactive Forms
 * LocalStorage / SessionStorage
 * Vitest (Angular Test Runner para pruebas unitarias)
+* JSDoc (documentacion interna del codigo)
+* Compodoc (generacion automatica de documentacion Angular)
 * GitHub (versionado de codigo)
 * Trello (organizacion del desarrollo)
 
@@ -107,15 +107,40 @@ Cada formulario incorpora:
 
 ## Pruebas unitarias implementadas
 
-Como parte del desarrollo se incorporaron algunas pruebas unitarias orientadas a validar el comportamiento de funcionalidades específicas de la aplicación, entre ellas:
+Como parte del desarrollo se implementaron multiples pruebas unitarias orientadas a validar distintas funcionalidades criticas de la aplicacion, entre ellas:
 
-* Filtrado correcto de productos según la categoría recibida por ruta.
-* Carga correcta del producto seleccionado según el identificador recibido por ruta.
+* Validacion de carga correcta de componentes
+* Verificacion de formularios invalidos cuando estan vacios
+* Rechazo de correos con formato incorrecto
+* Validacion de contrasenas inseguras
+* Verificacion de contrasenas que no coinciden
+* Filtrado correcto de productos segun categoria
+* Carga correcta del producto seleccionado segun identificador
 
 Ejecución:
 
 ```bash
 ng test
+```
+
+Visualizacion local:
+
+```bash
+npm run docs:serve
+```
+
+---
+
+## Documentacion del codigo
+
+Como parte del proceso de mejora de calidad FrontEnd se incorporo documentacion interna utilizando comentarios estructurados JSDoc en componentes, servicios, formularios, validadores y modulos principales del proyecto
+
+Ademas se integro la herramienta Compodoc para generar documentacion automatica del proyecto Angular, permitiendo visualizar de forma organizada la estructura general del desarrollo
+
+Ejecucion:
+
+```bash
+npm run docs
 ```
 
 ---
