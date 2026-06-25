@@ -20,6 +20,18 @@ describe('Registro', () => {
     expect(component).toBeTruthy();
   });
 
+  it('deberia iniciar con formulario invalido si los campos estan vacios', () => {
+    expect(component.registroForm.invalid).toBe(true);
+  });
+
+  it('deberia rechazar un correo con formato incorrecto', () => {
+    const correo = component.registroForm.get('correo');
+
+    correo?.setValue('correo-malo');
+
+    expect(correo?.invalid).toBe(true);
+  });
+
   it('deberia rechazar una contrasena insegura', () => {
     const password = component.registroForm.get('password');
 
